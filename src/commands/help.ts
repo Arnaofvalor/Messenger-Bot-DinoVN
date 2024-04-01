@@ -1,5 +1,5 @@
-import { Command } from "../core/interfaces";
-import fs from "fs";
+import { Command } from "../core/interfaces/index.ts";
+import fs from "node:fs";
 import { getPrefix } from "../core/module/prefix.ts";
 
 export const command: Command = {

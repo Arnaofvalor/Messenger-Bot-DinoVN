@@ -1,4 +1,4 @@
-import { api } from "./Map";
+import { api } from "./Map.ts";
 
 interface Run {
   (

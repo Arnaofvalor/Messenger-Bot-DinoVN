@@ -1,4 +1,4 @@
-import { Command } from '../core/interfaces';
+import { Command } from '../core/interfaces/index.ts';
 
 export const command: Command = {
   name: 'ping',

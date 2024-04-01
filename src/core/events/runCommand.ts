@@ -1,6 +1,6 @@
 import { Collection } from "@discordjs/collection";
 import { Command, Event } from "../interfaces/index.ts";
-import fs from "fs";
+import fs from "node:fs";
 import { aliases, commands } from "../index.ts";
 import { getPrefix } from "../module/prefix.ts";
 import { api } from "../interfaces/Map.ts";

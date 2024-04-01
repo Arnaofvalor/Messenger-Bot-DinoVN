@@ -1,4 +1,4 @@
-import child_process from "child_process";
+import child_process from "node:child_process";
 
 const child = child_process.spawn("npm", ["run", "start"], {
   stdio: ["inherit", "pipe", "inherit"],

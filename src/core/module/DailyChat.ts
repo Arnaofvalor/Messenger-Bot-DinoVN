@@ -2,12 +2,10 @@ import { Function } from "../interfaces/index.ts";
 import fetch from "node-fetch";
 import { guilds, users } from "./data.ts";
 import cron from "node-cron";
-import { group } from "console";
+// import { group } from "console";
 import { api } from "../interfaces/Map.ts";
 
 async function dailyTask(api: any) {
-  // console.log('Daily task executed at the end of the day.');
-  // Add your code here
   const daily = await guilds.find({})
   api.BotAPI.dailyModule.events.emit('dailyTask', daily.map((i) => {
     return {
@@ -26,10 +24,7 @@ async function dailyTask(api: any) {
   }
 }
 
-// Function to be executed monthly at the end of the month
 async function monthlyTask(api: any) {
-  // console.log('Monthly task executed at the end of the month.');
-  // Add your code here
   const monthly = await guilds.find({})
   api.BotAPI.dailyModule.events.emit('monthlyTask', monthly.map((i) => {
     return {
@@ -48,10 +43,7 @@ async function monthlyTask(api: any) {
   }
 }
 
-// Function to be executed yearly at the end of the year
 async function yearlyTask(api: api) {
-  // console.log('Yearly task executed at the end of the year.');
-  // Add your code here
   const yearly = await guilds.find({})
   api.BotAPI.dailyModule.events.emit('monthlyTask', yearly.map((i) => {
     return {

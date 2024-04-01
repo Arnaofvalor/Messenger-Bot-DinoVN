@@ -1,6 +1,6 @@
 import { Collection } from "@discordjs/collection";
-import { Command, Event } from "../core/interfaces";
-import fs from "fs";
+import { Command, Event } from "../core/interfaces/index.ts";
+import fs from "node:fs";
 
 export const command: Command = {
   name: "reload",

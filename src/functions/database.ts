@@ -3,10 +3,10 @@ import mongoose from "mongoose";
 
 export const functionFile: Function = {
   async execute(api) {
-    await mongoose.connect(process.env.MONGO_URI!, {
+    await mongoose.connect(api.env["MONGO_URI"]!, {
       serverApi: '1',
     }).then(() => console.info('Đã kết nối đến database'))
-    mongoose.Promise = global.Promise
+    // mongoose.Promise = global.Promise
     // mongoose.set('useFindAndModify', false)
   
     mongoose.connection.on('connected', () => {

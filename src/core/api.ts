@@ -1,9 +1,9 @@
-import { Stream } from "stream";
-import fs from "fs";
-import { sendCMT, uploadImageToFacebook } from "./apiModule/sendComment";
-import { getFb_dtsg } from "./apiModule/tool";
-import { getRecommendedFriends, sendFrendRequest } from "./apiModule/friend";
-import { event } from "./interfaces/Map";
+import { Stream } from "node:stream";
+import fs from "node:fs";
+import { sendCMT, uploadImageToFacebook } from "./apiModule/sendComment.ts";
+import { getFb_dtsg } from "./apiModule/tool.ts";
+import { getRecommendedFriends, sendFrendRequest } from "./apiModule/friend.ts";
+import { event } from "./interfaces/Map.ts";
 import { Collection } from "@discordjs/collection";
 
 export interface APIModule {
@@ -45,8 +45,6 @@ export function API(api: any) {
     const events = api.global.OnEvents;
     let fileName = Date.now()
     name.forEach((name: any) => {
-      // console.log(name)
-      // if(event.type == name) event.execute(api, event)
       if (!events.has(fileName)) {
         events.set(fileName, new Collection<string, Event>());
       }

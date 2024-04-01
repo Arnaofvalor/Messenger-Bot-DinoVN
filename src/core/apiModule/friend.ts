@@ -1,7 +1,7 @@
 import axios from "axios";
-import { api } from "../interfaces/Map";
-import { getFb_dtsg } from "./tool";
-import fs from "fs";
+import { api } from "../interfaces/Map.ts";
+import { getFb_dtsg } from "./tool.ts";
+import fs from "node:fs";
 
 export async function getRecommendedFriends(
   api: api,

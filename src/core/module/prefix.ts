@@ -1,5 +1,5 @@
-import { api, event } from "../interfaces/Map";
-import { guilds, users } from "./data";
+import { api, event } from "../interfaces/Map.ts";
+import { guilds, users } from "./data.ts";
 
 export async function getPrefix(api: api, event: event, id: string) {
   // Thực hiện câu lệnh SQL SELECT

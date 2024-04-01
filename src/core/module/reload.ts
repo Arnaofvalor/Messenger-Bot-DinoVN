@@ -1,7 +1,7 @@
 import { api, event } from "../interfaces/Map.ts";
 import { Collection } from "@discordjs/collection";
-import { Command, Event } from "../interfaces";
-import fs from "fs";
+import { Command, Event } from "../interfaces/index.ts";
+import fs from "node:fs";
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);

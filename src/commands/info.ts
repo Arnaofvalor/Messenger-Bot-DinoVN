@@ -1,24 +1,7 @@
-import { Command } from "../core/interfaces";
-import os from "os";
-import { execSync } from 'child_process';
-
-function getCPUName() {
-  try {
-    // Thực hiện lệnh lscpu và chuyển kết quả thành chuỗi
-    const lscpuOutput = execSync('lscpu', { encoding: 'utf-8' });
-
-    // Tìm dòng chứa thông tin CPU name
-    const cpuNameLine = lscpuOutput.split('\n').find(line => line.includes('Model name:'));
-
-    // Trích xuất tên CPU từ dòng đó
-    const cpuName = cpuNameLine!.split(':').pop()!.trim();
-
-    return cpuName;
-  } catch (error) {
-    console.error('Error retrieving CPU name:', error);
-    return null;
-  }
-}
+import { Command } from "../core/interfaces/index.ts";
+import os from "node:os";
+import { execSync } from 'node:child_process';
+import process from "node:process";
 
 function uptime(time: number) {
   let totalSeconds = time / 1000;
@@ -62,13 +45,14 @@ export const command: Command = {
     const memoryUsed = formatBytesToGB(memoryUsage.heapTotal);
     const uptimeString = uptime(Date.now() - api.uptime);
     let maxGB = process.env.SERVER_MEMORY ? formatMBToGB(+process.env.SERVER_MEMORY) : formatBytesToGB(os.totalmem())
-    let cpu = os.cpus()[0].model == "unknown" ? getCPUName() : os.cpus()[0].model;
+    let cpu = os.cpus()[0].model;
 
     api.sendMessage(`
 🤖 *Bot Info* (${ping}ms)
 ⏳ Bot đã hoạt động: *${uptimeString}*
 ✨ Bot Đang ở trong *${await api.BotAPI.getNumberOfGroup()}* groups
 🖥️ CPU: *${cpu}* (${process.arch})
+📦 Runtime: *${api.runtime == "node"? `NodeJS ${process.version.slice(1)}` : `Deno ${Deno.version.deno}`}*
 💾 Memory used: *${memoryUsed}/${maxGB} GB*
 `,
       event.threadID,

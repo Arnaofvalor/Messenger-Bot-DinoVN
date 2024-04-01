@@ -1,4 +1,4 @@
-import { api } from "./Map";
+import { api } from "./Map.ts";
 import { Request as ExpressRequest, Response } from 'express';
 
 interface ExtendedRequest extends ExpressRequest {

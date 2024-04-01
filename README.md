@@ -1,11 +1,13 @@
 # Messenger Bot
+## Bot có thể chạy trên NodeJS >= 20 hoặc Deno >= 1.42.1
 ## Code này chỉ có 1 người code nên có gì hãy pull request fix giúp mình nhé
 - [Cách Tải](#cách-tải)
-- [Cài đặt các package](#cài-đặt-các-package)
 - [Setup env](#setup-env)
 - [Chỉnh config của bot](#chỉnh-config-của-bot)
 - [Cách sử dụng](#cách-sử-dụng)
-- [Cách chạy](#cách-chạy)
+- [Cài đặt các package (NodeJS)](#cài-đặt-các-package) (Nếu bạn dùng Deno thì bỏ qua)
+- [Cách chạy trên NodeJS](#chạy-bot-nodejs)
+- [Cách chạy trên Deno](#chạy-bot-deno)
 - [Update logs](#update-log)
 ---
 ### Cách Tải
@@ -14,6 +16,7 @@
 git clone https://github.com/Dino-VN/Messenger-Bot-DinoVN.git
 ```
 ### Cài đặt các package
+Nếu bạn dùng Deno thì bỏ qua
 ```
 # Dùng npm
 npm install
@@ -64,17 +67,26 @@ export default {
  - 📁src/events - nơi chứa các event
     - Xem file lệnh ví dụ tại [đây](https://github.com/Dino-VN/Messenger-Bot-DinoVN/blob/Core/src/events/LogAllMessage.ts.example) event đó sẽ log tất cả tin nhắn bot nhìn thấy
  - 📁src/functions - nơi chứa functions tất cả file trong này sẽ được chạy khi bot khởi động
-### Chạy bot
+### Chạy bot (NodeJS)
 Chạy bot bằng package manager
-```
+```sh
 # Dùng npm
 npm start
 # Dùng yarn
 yarn start
 ```
 Hoặc chạy bằng lệnh node
-```
+```sh
 node index.js
+```
+### Chạy bot (Deno)
+Chạy lệnh không cần đồng ý quyền
+```sh
+deno run --allow-read --allow-env --allow-run src/index.ts
+```
+Hoặc chạy đồng ý từng quyền 1
+```sh
+deno run src/index.ts
 ```
 ---
 ### Update log
@@ -96,6 +108,8 @@ api.sendMessage(`pong, ${ping} ms`, event.threadID, (e, m) => {
   }, 30000);
 },event.messageID);
 ```
+**1/4/2024 - 20:30**
+Thêm hỗ trợ cho Deno 1.42.1
 **23/2/2024 - 13:00**
 ```ts
 // Thêm

@@ -1,4 +1,4 @@
-import EventEmitter from "events";
+import EventEmitter from "node:events";
 import { Function } from "../interfaces/index.ts";
 import { guilds, users } from "./data.ts";
 import { reloadCommands, reloadEvents } from "./reload.ts";
@@ -12,6 +12,12 @@ export const BotAPI = {
   /** Lấy số lương người dùng bot từng thấy chat */
   getNumberOfUser: async function (): Promise<number> {
     return await users.countDocuments({});
+  },
+  getAllGroup: async function (): Promise<any> {
+    return await guilds.find({});
+  },
+  getAllUser: async function (): Promise<any> {
+    return await users.find({});
   },
 
   /** Dùng để reload lại tất cả lệnh */

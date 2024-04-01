@@ -10,7 +10,7 @@ export const functionFile: Function = {
 			res.send("Ok")
 		})
 
-		const PORT = api.config.PORT || process.env.SERVER_PORT || 3000
+		const PORT = api.config.PORT || api.env["SERVER_PORT"] || 3000
 
 		app.listen(PORT, () => {
 			console.info("Chạy web uptime thành công ở port: " + PORT);

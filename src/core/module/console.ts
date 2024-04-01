@@ -1,3 +1,19 @@
+import process from "node:process";
+
+let runtime = "unknown";
+
+if (process.env.NODE) {
+  runtime = "node";
+} else if (Deno.version) {
+  runtime = "deno"
+}
+
+if (runtime === "unknown") {
+  console.error("Unknown runtime");
+  if (process.send) process.send("stop");
+  process.exit(1);
+}
+
 const colors = {
   reset: "\x1B[0m",
   black: "\x1B[30m",
@@ -27,7 +43,12 @@ function loadingAnimation(
   let x = 0;
 
   return setInterval(function () {
-    process.stdout.write("\r" + `${colors.gray}[${colors.green}` + chars[x++] + `${colors.gray}]${colors.reset} ` + text);
+    if (runtime === "deno") {
+      const str = new TextEncoder().encode(`\r${colors.gray}[${colors.green}` + chars[x++] + `${colors.gray}]${colors.reset} ` + text)
+      Deno.stdout.writeSync(str);
+    } else if (runtime === "node") {
+      process.stdout.write(`\r${colors.gray}[${colors.green}` + chars[x++] + `${colors.gray}]${colors.reset} ` + text);
+    }
     x = x % chars.length;
   }, delay);
 }
@@ -37,7 +58,12 @@ function doneAnimation(
   loadingAnimation: any
 ) {
   clearInterval(loadingAnimation);
-  process.stdout.write("\r" + `${colors.gray}[${colors.green}✓${colors.gray}]${colors.reset} ` + text + "\n");
+  if (runtime === "deno") {
+    const str = new TextEncoder().encode("\r" + `${colors.gray}[${colors.green}✓${colors.gray}]${colors.reset} ` + text + "\n");
+    Deno.stdout.writeSync(str);
+  } else if (runtime === "node") {
+    process.stdout.write("\r" + `${colors.gray}[${colors.green}✓${colors.gray}]${colors.reset} ` + text + "\n");
+  }
 }
 
 function errAnimation(
@@ -45,7 +71,12 @@ function errAnimation(
   loadingAnimation: any
 ) {
   clearInterval(loadingAnimation);
-  process.stdout.write("\r" + `${colors.gray}[${colors.red}X${colors.gray}]${colors.reset} ` + text + "\n");
+  if (runtime === "deno") {
+    const str = new TextEncoder().encode("\r" + `${colors.gray}[${colors.green}X${colors.gray}]${colors.reset} ` + text + "\n");
+    Deno.stdout.writeSync(str);
+  } else if (runtime === "node") {
+    process.stdout.write("\r" + `${colors.gray}[${colors.green}X${colors.gray}]${colors.reset} ` + text + "\n");
+  }
 }
 
 console.info = (message: any, ...optionalParams: any[]) => {

@@ -26,6 +26,7 @@ const guilds = model("guilds", new Schema({
 const users = model("users", new Schema({
   _id: String,
   prefix: String,
+  premission: Array,
   token: String,
   banned: Boolean,
   public_ban: Boolean,

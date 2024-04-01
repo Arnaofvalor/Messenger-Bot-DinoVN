@@ -1,10 +1,7 @@
 import { loadingAnimation, doneAnimation, errAnimation } from "./module/console.ts";
-import "dotenv/config";
 
-// const fbchat = require("facebook-chat-api")
 import fbchat from "@xaviabot/fca-unofficial";
-// import fbchat from "nhatcoder-fb-api";
-import fs from "fs";
+import fs from "node:fs";
 
 import { Collection } from "@discordjs/collection";
 
@@ -15,6 +12,7 @@ import botConfig from "../../bot.config.js";
 import { checkUpdate } from "./module/update.ts";
 import { users } from "./module/data.ts";
 import { API } from "./api.ts";
+import process from "node:process";
 
 const events: Collection<string, Collection<string, Event>> = new Collection();
 const OnEvents: Collection<string, Collection<string, {
@@ -24,6 +22,14 @@ const commands: Collection<string, Command> = new Collection();
 const aliases: Collection<string, Command> = new Collection();
 const cooldowns: Collection<string, Cooldown> = new Collection();
 
+let runtime = "unknown";
+
+if (process.env.NODE) {
+  runtime = "node";
+} else if (Deno.version) {
+  runtime = "deno"
+}
+
 const CommandFiles = fs
   .readdirSync("./src/commands")
   .filter((file) => file.endsWith(".ts"));
@@ -32,8 +38,6 @@ for (const file of CommandFiles) {
   try {
     import(`../commands/${file}`).then(command => {
       command = command.command;
-      // const command = require(`../commands/${file}`).command;
-      // console.log(command)
       if (!command || !command.name || !command.execute)
         console.error(`Hãy khiểm tra lại lệnh ${file}`);
       else {
@@ -89,13 +93,10 @@ const eventFiles = fs
 for (const file of eventFiles) {
   try {
     import(`../events/${file}`).then(event => {
-      // const event = require(`../events/${file}`).event;
       event = event.event;
       if (!event || !event.name || !event.execute) console.error(`Hãy khiểm tra lại event ${file}`);
       else {
         event.name.forEach((name: any) => {
-          // console.log(name)
-          // if(event.type == name) event.execute(api, event)
           if (!events.has(file)) {
             events.set(file, new Collection<string, Event>());
           }
@@ -115,13 +116,10 @@ const core_eventFiles = fs
 for (const file of core_eventFiles) {
   try {
     import(`./events/${file}`).then(event => {
-      // const event = require(`../events/${file}`).event;
       event = event.event;
       if (!event || !event.name || !event.execute) console.error(`Lỗi khi load core event ${file} hãy báo lỗi trên github`);
       else {
         event.name.forEach((name: any) => {
-          // console.log(name)
-          // if(event.type == name) event.execute(api, event)
           let fileName = "core_" + file
           if (!events.has(fileName)) {
             events.set(fileName, new Collection<string, Event>());
@@ -177,10 +175,8 @@ function loadMqtt(api: api) {
     if (event.senderID && api.ban_list.includes(event.senderID)) return
     if (event.author && api.ban_list.includes(event.author)) return
 
-    // console.log(events)
     events.map(eventfile => {
       let hevent = eventfile.get(event.type);
-      // console.log(hevent)
       if (hevent) (hevent as Event).execute(api, event);
     });
     OnEvents.map(eventfile => {
@@ -226,6 +222,10 @@ async function startBot() {
         return;
       }
 
+      const env = await loadEnv()
+      api.env = env
+      api.runtime = runtime
+
       doneAnimation("Đang kết nối với Facebook...", loading)
 
       api = API(api);
@@ -265,7 +265,6 @@ async function startBot() {
         try {
           let functionFile = await import(`./functions/${file}`);
           functionFile = functionFile.functionFile;
-          // const functionFile = require(`../functions/${file}`).functionFile;
           if (!functionFile || !functionFile.execute) console.error(`Lỗi khi load core function ${file} hãy báo lỗi trên github`);
           else {
             functionFile.execute(api)
@@ -283,7 +282,6 @@ async function startBot() {
         try {
           let functionFile = await import(`../functions/${file}`);
           functionFile = functionFile.functionFile;
-          // const functionFile = require(`../functions/${file}`).functionFile;
           if (!functionFile || !functionFile.execute) console.error(`Hãy khiểm tra lại function ${file}`);
           else {
             functionFile.execute(api)
@@ -303,7 +301,30 @@ async function startBot() {
   );
 }
 
+async function loadEnv() {
+  if (runtime === "node") {
+    if (!fs.existsSync(".env")) {
+      console.error("Không tìm thấy file .env, hãy tạo mới");
+      if (process.send) process.send("stop");
+      return;
+    }
+    import("dotenv/config");
+    return process.env
+  } else if (runtime === "deno") {
+    if (!fs.existsSync("./.env")) {
+      console.error("Không tìm thấy file .env, hãy tạo mới");
+      if (process.send) process.send("stop");
+      return;
+    }
+    const { load } = await import("https://deno.land/std@0.221.0/dotenv/mod.ts")
+    const env = await load({
+      envPath: "./.env"
+    })
+    return env
+  }
+}
+
 if (botConfig.UPDATE) {
   checkUpdate(() => startBot());
-} else startBot();
-export { events, commands, aliases, cooldowns };
+} else { startBot() }
+export { events, commands, aliases, cooldowns, runtime }

@@ -1,5 +1,5 @@
-import { Command } from '../interfaces';
-import { guilds, users } from '../module/data';
+import { Command } from '../interfaces/index.ts';
+import { guilds, users } from '../module/data.ts';
 
 export const command: Command = {
   name: 'prefix',

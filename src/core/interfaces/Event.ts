@@ -1,5 +1,5 @@
-import { cooldowns, events } from "..";
-import { api, event } from "./Map";
+import { cooldowns, events } from "../index.ts";
+import { api, event } from "./Map.ts";
 
 interface Run {
     (api: api, event: event): any;

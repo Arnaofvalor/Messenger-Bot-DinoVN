@@ -1,8 +1,8 @@
-import fs from "fs";
+import fs from "node:fs";
 import axios from "axios";
 import cheerio from "cheerio";
 import FormData from "form-data";
-import { getFb_dtsg } from "./tool";
+import { getFb_dtsg } from "./tool.ts";
 
 function getGUID() {
   let _0x161e32 = Date.now(),

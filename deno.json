@@ -1,0 +1,12 @@
+{
+  "imports": {
+    "@discordjs/collection": "npm:@discordjs/collection@^2.0.0",
+    "@xaviabot/fca-unofficial": "npm:@xaviabot/fca-unofficial@^1.4.0",
+    "axios": "npm:axios@^1.6.8",
+    "cheerio": "npm:cheerio@^0.22.0",
+    "express": "npm:express@^4.19.2",
+    "form-data": "npm:form-data@^4.0.0",
+    "inquirer": "npm:inquirer@^9.2.17",
+    "mongoose": "npm:mongoose@^8.2.4"
+  }
+}

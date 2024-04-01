@@ -1,5 +1,5 @@
 import axios from "axios";
-import fs from "fs";
+import fs from "node:fs";
 import cheerio from "cheerio";
 
 export async function getFb_dtsg() {

@@ -1,8 +1,8 @@
-import { aliases, commands, cooldowns, events } from "..";
-import { ReadStream } from "fs";
+import { aliases, commands, cooldowns, events } from "../index.ts";
+import { ReadStream } from "node:fs";
 import { BotAPI } from "../module/api.ts";
 import { reloadCommands, reloadEvents } from "../module/reload.ts";
-import { Stream } from "stream";
+import { Stream } from "node:stream";
 import { APIModule } from "../api.ts";
 
 //facebook-comment-api
@@ -81,6 +81,8 @@ export interface api extends APIModule {
 	global: any;
 	/** Danh sách uid của những người bị ban */
 	ban_list: string[],
+	env: any,
+	runtime: "node" | "deno",
 
 
 	// fb: FbApi,

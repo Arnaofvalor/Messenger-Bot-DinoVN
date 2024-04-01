@@ -1,5 +1,5 @@
 import { Collection } from "@discordjs/collection";
-import { api, event } from "./Map";
+import { api, event } from "./Map.ts";
 
 interface Run {
   (
@@ -58,7 +58,7 @@ export interface Command {
   /** Chỉnh delay của lệnh mặc đinh 3s. **Số tính theo giây** */
   cooldown?: number;
   /** Quyền của lệnh */
-  permission: "owner" | "admin" | "everyone",
+  permission?: "owner" | "admin" | "everyone",
   /** Nơi chứa function chạy của lệnh\
    * Nhũng thông tin mà function chạy của lệnh có thể truy cập
    * @param api - Api từ bot
