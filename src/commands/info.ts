@@ -52,7 +52,7 @@ export const command: Command = {
 ⏳ Bot đã hoạt động: *${uptimeString}*
 ✨ Bot Đang ở trong *${await api.BotAPI.getNumberOfGroup()}* groups
 🖥️ CPU: *${cpu}* (${process.arch})
-📦 Runtime: *${api.runtime == "node"? `NodeJS ${process.version.slice(1)}` : `Deno ${Deno.version.deno}`}*
+🛰 Runtime: *${api.runtime == "node"? `📝 NodeJS ${process.version.slice(1)}` : `🦖 Deno ${Deno.version.deno}`}*
 💾 Memory used: *${memoryUsed}/${maxGB} GB*
 `,
       event.threadID,

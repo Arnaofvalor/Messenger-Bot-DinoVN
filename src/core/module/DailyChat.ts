@@ -87,7 +87,7 @@ export async function DailyChat(api: api) {
   }); // Yearly on the 1st day of January at midnight
 
   // Keep the process alive to allow cron jobs to run
-  process.stdin.resume();
+  // process.stdin.resume();
 
   setInterval(async () => {
     // api.BotAPI.dailyModule.events.emit('dailyTask', [])
