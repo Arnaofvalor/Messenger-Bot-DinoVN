@@ -82,7 +82,7 @@ node index.js
 ### Chạy bot (Deno)
 Chạy lệnh không cần đồng ý quyền
 ```sh
-deno run --allow-read --allow-env --allow-run src/index.ts
+deno run --allow-all src/index.ts
 ```
 Hoặc chạy đồng ý từng quyền 1
 ```sh

@@ -76,7 +76,7 @@ function main() {
 		})
 	} else if (runtime === "deno") {
 		const p = Deno.run({
-			cmd: ["deno", "run", "--allow-net", "--allow-read", "--allow-write", "--allow-env", "--allow-run", "--allow-sys", "./src/core/index.ts"],
+			cmd: ["deno", "run", "--allow-all", "./src/core/index.ts"],
 			stdout: "piped",
 			stderr: "piped",
 		});
