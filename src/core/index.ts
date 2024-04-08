@@ -1,6 +1,6 @@
 import { loadingAnimation, doneAnimation, errAnimation } from "./module/console.ts";
 
-import fbchat from "@xaviabot/fca-unofficial";
+import fbchat from "dinovn-fca";
 import fs from "node:fs";
 
 import { Collection } from "@discordjs/collection";
@@ -26,8 +26,17 @@ let runtime = "unknown";
 
 if (process.env.NODE) {
   runtime = "node";
-} else if (Deno.version) {
-  runtime = "deno"
+} else {
+  try {
+    if (Deno) {
+      runtime = "deno";
+    }
+  } catch (e) {}
+  try {
+    if (Bun) {
+      runtime = "bun";
+    }
+  } catch (e) {}
 }
 
 const CommandFiles = fs

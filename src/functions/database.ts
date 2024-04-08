@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 
 export const functionFile: Function = {
   async execute(api) {
-    await mongoose.connect(api.env["MONGO_URI"]!, {
+    console.log(api)
+    await mongoose.connect(api.env.MONGO_URI!, {
       serverApi: '1',
     }).then(() => console.info('Đã kết nối đến database'))
     // mongoose.Promise = global.Promise

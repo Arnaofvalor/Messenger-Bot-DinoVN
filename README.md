@@ -1,5 +1,5 @@
 # Messenger Bot
-## Bot có thể chạy trên NodeJS >= 20 hoặc Deno >= 1.42.1
+## Bot có thể chạy trên NodeJS >= 20 hoặc Deno >= 1.42.1 (Deno vẫn chưa bằng NodeJS)
 ## Code này chỉ có 1 người code nên có gì hãy pull request fix giúp mình nhé
 - [Cách Tải](#cách-tải)
 - [Setup env](#setup-env)

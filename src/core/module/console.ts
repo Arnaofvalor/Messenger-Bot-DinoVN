@@ -4,8 +4,17 @@ let runtime = "unknown";
 
 if (process.env.NODE) {
   runtime = "node";
-} else if (Deno.version) {
-  runtime = "deno"
+} else {
+  try {
+    if (Deno) {
+      runtime = "deno";
+    }
+  } catch (e) {}
+  try {
+    if (Bun) {
+      runtime = "bun";
+    }
+  } catch (e) {}
 }
 
 if (runtime === "unknown") {

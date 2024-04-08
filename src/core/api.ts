@@ -1,6 +1,5 @@
 import { Stream } from "node:stream";
 import fs from "node:fs";
-import { sendCMT, uploadImageToFacebook } from "./apiModule/sendComment.ts";
 import { getFb_dtsg } from "./apiModule/tool.ts";
 import { getRecommendedFriends, sendFrendRequest } from "./apiModule/friend.ts";
 import { event } from "./interfaces/Map.ts";
@@ -16,24 +15,6 @@ export interface APIModule {
 }
 
 export function API(api: any) {
-  api.sendComment = async (body: string | { body: string, attachment: fs.ReadStream }, postId: string, callback?: (error: any, data?: any) => void) => {
-    if(typeof body === "string") {
-      let res = await sendCMT(api, body, postId);
-      if (res.data.comment_create) {
-        if(callback) callback(null, res);
-      } else {
-        if(callback) callback(res);
-      }
-    } else if (typeof body === "object") {
-      let fileID = await uploadImageToFacebook(api, body.attachment)
-      let res = await sendCMT(api, body.body, postId, fileID);
-      if (res.data.comment_create) {
-        if(callback) callback(null, res);
-      } else {
-        if(callback) callback(res);
-      }
-    }
-  };
   api.getFb_dtsg = getFb_dtsg
   api.getRecommendedFriends = (callback?: (error: any, data?: any) => void) => {
     getRecommendedFriends(api, callback);
