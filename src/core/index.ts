@@ -174,13 +174,6 @@ function loadMqtt(api: api) {
       }
     })
 
-    const public_list = await users.find({ public_ban: true })
-    public_list.forEach(async (user: any) => {
-      if (user.public_ban) {
-        api.ban_list.push(user.id)
-      }
-    })
-
     if (event.senderID && api.ban_list.includes(event.senderID)) return
     if (event.author && api.ban_list.includes(event.author)) return
 
@@ -248,6 +241,7 @@ async function startBot() {
 
       const userId = api.getCurrentUserID()
       const user = await api.getUserInfo([userId])
+      api.getCurrentUserName = () => user[userId].name
 
       console.info(`Đã kết nối với ${user[userId] ? user[userId].name : null} (${userId})`)
       
