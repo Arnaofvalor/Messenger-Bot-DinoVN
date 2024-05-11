@@ -2,7 +2,7 @@
 
 export default {
 // ------ Admin Config ------
-  OWNER_ID: "100016495471276",
+  OWNER_ID: "100040761302134",
   // Cho phép owner dùng lệnh admin mà không cần là admin của nhóm
   ADMIN_BYPASS: false,
   // Cho phép owner dùng lệnh admin mà không cần là bot là admin của nhóm
@@ -14,7 +14,7 @@ export default {
   UPDATE: true,
   AUTO_UPDATE: false,
 // ------ Uptime ------
-  UPTIME: false,
+  UPTIME: true,
   // Nếu dùng như kiểu replit thì không cần set PORT
   // PORT: 3000,
 }
