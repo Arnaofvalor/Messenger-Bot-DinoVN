@@ -3,7 +3,7 @@
     "@discordjs/collection": "npm:@discordjs/collection@^2.0.0",
     "axios": "npm:axios@^1.6.8",
     "cheerio": "npm:cheerio@^0.22.0",
-    "dinovn-fca": "npm:dinovn-fca@^1.0.0",
+    "dinovn-fca": "npm:meta-horizonn@^1.2.3",
     "express": "npm:express@^4.19.2",
     "form-data": "npm:form-data@^4.0.0",
     "inquirer": "npm:inquirer@^9.2.17",
